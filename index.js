@@ -6,7 +6,7 @@ import cors from "cors";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { PORT } from "./config.js";
+import { PORT } from "./server/config.js";
 
 const app = express(); // app de express
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(join(__dirname, '../client/build')));
+app.use(express.static(join(__dirname, 'client/build')));
 
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto: ${PORT}`);
