@@ -3,7 +3,8 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 
 // pasar direccion de websockets
-const socket = io("http://localhost:4000"); // escuchar eventos y enviar eventos
+// const socket = io("http://localhost:4000"); // escuchar eventos y enviar eventos
+const socket = io();
 
 function App() {
   const [message, setMessage] = useState("");
