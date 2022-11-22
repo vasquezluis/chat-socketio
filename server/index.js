@@ -23,9 +23,11 @@ io.on("connection", (socket) => {
 
   // escuchar el evento message del front-end | nombre valor
   socket.on("message", (message) => {
-    console.log(message);
     // reenviar el valor capturado al front-end | nombre valor
-    socket.broadcast.emit("message", message);
+    socket.broadcast.emit("message", {
+      body: message,
+      from: socket.id,
+    });
   });
 });
 
