@@ -7,26 +7,32 @@ const socket = io("http://localhost:4000"); // escuchar eventos y enviar eventos
 
 function App() {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // enviar al backend - nombre valor
     socket.emit("message", message);
 
+    const newMessage = {
+      body: message,
+      from: "Me",
+    };
+    setMessages([newMessage, ...messages]);
     setMessage("");
   };
 
   // useeffect para escuchar los eventos desde que carga la aplicacion
   useEffect(() => {
     const reciveMessage = (message) => {
-      console.log(message);
+      setMessages([message, ...messages]);
     };
     socket.on("message", reciveMessage);
 
     return () => {
       socket.off("message", reciveMessage);
     };
-  }, []);
+  }, [messages]);
 
   return (
     <div className="App">
@@ -38,6 +44,14 @@ function App() {
         />
         <button>Send</button>
       </form>
+
+      {messages.map((message, index) => (
+        <div key={index}>
+          <p>
+            {message.from}: {message.body}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
