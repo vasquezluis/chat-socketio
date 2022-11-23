@@ -35,7 +35,11 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(join(__dirname, 'client/build')));
+app.use(express.static(join(__dirname, "client/build")));
+
+app.get("/", (req, res) => {
+  res.send("Chat using socket.io");
+});
 
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto: ${PORT}`);
